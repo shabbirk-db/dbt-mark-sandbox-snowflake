@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    database: sa_mark_wan
+    tables:
+      - name: customers
+      - name: orders
