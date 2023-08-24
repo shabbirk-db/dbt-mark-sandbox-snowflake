@@ -17,10 +17,9 @@ job_cause       = os.getenv("DBT_CLOUD_JOB_CAUSE", "github_actions_pull_request"
 git_branch      = os.getenv("DBT_CLOUD_JOB_BRANCH", None)
 schema_override = os.getenv("DBT_CLOUD_JOB_SCHEMA_OVERRIDE", None)
 api_token       = os.environ["DBT_CLOUD_API_TOKEN"]
-account_id      = "20"
-project_id      = "3518"
-job_id          = "3605"
-
+account_id      = os.environ["DBT_CLOUD_ACCOUNT_ID"]
+project_id      = os.environ["DBT_CLOUD_PROJECT_ID"]
+job_id          = os.environ["DBT_CLOUD_JOB_ID"]
 job_config = f"""
 Request configuration:
     api_base: {api_base}
