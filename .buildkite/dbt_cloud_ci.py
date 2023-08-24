@@ -63,7 +63,7 @@ def run_dbt_cloud_job(
     req_payload = {"cause": cause}
     if branch:
         req_payload["git_branch"] = branch.replace("refs/heads/", "")
-    if schema_override:
+    if schema_override != "false":
         req_payload["schema_override"] = schema_override.replace("-", "_")
     if steps:
         req_payload["steps_override"] = steps
@@ -115,13 +115,13 @@ def main():
     except Exception as e:
         print(f"ERROR! - Could not trigger dbt Cloud job:\n{e}")
         raise
-
+    
     req_status_url = f"{api_base}/api/v2/accounts/{account_id}/runs/{run_id}/"
     run_status_link = (
-        f"{api_base}/#/accounts/{account_id}/projects/{project_id}/runs/{run_id}/"
+        f"{api_base}/deploy/{account_id}/projects/{project_id}/runs/{run_id}"
     )
-
-    time.sleep(30)
+    print(f"Job has started successfully! See details at {run_status_link}")
+    time.sleep(15)
 
     while True:
         run_status = get_run_status(req_status_url, req_auth_header)
