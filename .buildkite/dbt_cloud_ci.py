@@ -115,12 +115,12 @@ def main():
     except Exception as e:
         print(f"ERROR! - Could not trigger dbt Cloud job:\n{e}")
         raise
-
+    
     req_status_url = f"{api_base}/api/v2/accounts/{account_id}/runs/{run_id}/"
     run_status_link = (
         f"{api_base}/#/accounts/{account_id}/projects/{project_id}/runs/{run_id}/"
     )
-
+    print(f"Job has started successfully! See details at {run_status_link}")
     time.sleep(15)
 
     while True:
