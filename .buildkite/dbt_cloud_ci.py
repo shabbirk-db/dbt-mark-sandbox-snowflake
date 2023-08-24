@@ -15,6 +15,7 @@ args = parser.parse_args()
 api_base        = os.getenv("DBT_CLOUD_URL", "https://au.dbt.com")
 job_cause       = os.getenv("DBT_CLOUD_JOB_CAUSE", "github_actions_pull_request")
 git_branch      = os.getenv("DBT_CLOUD_JOB_BRANCH", None)
+pull_request_id = os.getenv("DBT_CLOUD_PULL_REQUEST_ID", None)
 schema_override = os.getenv("DBT_CLOUD_JOB_SCHEMA_OVERRIDE", None)
 api_token       = os.environ["DBT_CLOUD_API_TOKEN"]
 account_id      = os.environ["DBT_CLOUD_ACCOUNT_ID"]
@@ -25,6 +26,7 @@ Request configuration:
     api_base: {api_base}
     job_cause: {job_cause}
     git_branch: {git_branch}
+    pull_request_id: {pull_request_id}
     schema_override: {schema_override}
     account_id: {account_id}
     project_id: {project_id}
@@ -51,6 +53,7 @@ def run_dbt_cloud_job(
     url,
     headers,
     cause,
+    pull_request_id=None,
     branch=None,
     schema_override=None,
     steps=None,
@@ -64,6 +67,8 @@ def run_dbt_cloud_job(
         req_payload["schema_override"] = schema_override.replace("-", "_")
     if steps:
         req_payload["steps_override"] = steps
+    if pull_request_id:
+        req_payload["github_pull_request_id"] = int(pull_request_id)
     print(f"Triggering job:\n    url: {url}\n    payload: {req_payload}\n")
 
     data = json.dumps(req_payload).encode()
@@ -102,6 +107,7 @@ def main():
             url=req_job_url,
             headers=req_auth_header,
             cause=job_cause,
+            pull_request_id=pull_request_id,
             branch=git_branch,
             schema_override=schema_override,
             steps=job_steps,
