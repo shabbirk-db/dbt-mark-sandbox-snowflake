@@ -118,7 +118,7 @@ def main():
     
     req_status_url = f"{api_base}/api/v2/accounts/{account_id}/runs/{run_id}/"
     run_status_link = (
-        f"{api_base}/#/deploy/{account_id}/projects/{project_id}/runs/{run_id}"
+        f"{api_base}/deploy/{account_id}/projects/{project_id}/runs/{run_id}"
     )
     print(f"Job has started successfully! See details at {run_status_link}")
     time.sleep(15)
