@@ -63,7 +63,7 @@ def run_dbt_cloud_job(
     req_payload = {"cause": cause}
     if branch:
         req_payload["git_branch"] = branch.replace("refs/heads/", "")
-    if schema_override:
+    if schema_override != "false":
         req_payload["schema_override"] = schema_override.replace("-", "_")
     if steps:
         req_payload["steps_override"] = steps
@@ -121,7 +121,7 @@ def main():
         f"{api_base}/#/accounts/{account_id}/projects/{project_id}/runs/{run_id}/"
     )
 
-    time.sleep(30)
+    time.sleep(15)
 
     while True:
         run_status = get_run_status(req_status_url, req_auth_header)
