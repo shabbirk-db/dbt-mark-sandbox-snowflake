@@ -1,0 +1,6 @@
+steps:
+  - label: ":pipeline:"
+    command: buildkite-agent pipeline upload
+  - label: ":python:"
+    commands:
+      - python3 .buildkite/dbt_cloud_ci.py 
