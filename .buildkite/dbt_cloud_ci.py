@@ -131,7 +131,7 @@ def main():
             raise Exception(f"Run failed or cancelled. See why at {run_status_link}")
 
         if run_status == "Success":
-            print(f"Job completed successfully! See details at {run_status_link}")
+            print(f"Job completed successfully! <a href='{run_status_link}'> Click here to see details</a> ")
             return
 
         time.sleep(10)
