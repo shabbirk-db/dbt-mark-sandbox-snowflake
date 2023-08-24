@@ -53,6 +53,7 @@ def run_dbt_cloud_job(
     url,
     headers,
     cause,
+    pull_request_id=None,
     branch=None,
     schema_override=None,
     steps=None,
@@ -66,6 +67,8 @@ def run_dbt_cloud_job(
         req_payload["schema_override"] = schema_override.replace("-", "_")
     if steps:
         req_payload["steps_override"] = steps
+    if pull_request_id:
+        req_payload["pull_request_id"] = pull_request_id
     print(f"Triggering job:\n    url: {url}\n    payload: {req_payload}\n")
 
     data = json.dumps(req_payload).encode()
