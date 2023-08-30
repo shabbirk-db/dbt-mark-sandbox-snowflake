@@ -1,5 +1,4 @@
 with customers as (
--- hi me me
     select
         id as customer_id,
         first_name,
